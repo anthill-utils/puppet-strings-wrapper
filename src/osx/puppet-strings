@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+if [ $# -ne 2 ]; then
+    echo "Usage: puppet-strings '[<json array of patterns>]' output.json"
+    exit 1
+fi
+
+# Figure out where this script is located.
+SELFDIR="`dirname \"$0\"`"
+SELFDIR="`cd \"$SELFDIR\" && pwd`"
+
+# Run the actual app using the bundled Ruby interpreter.
+exec "$SELFDIR/lib/ruby/bin/ruby" "$SELFDIR/lib/app/puppet-strings.rb" "$1" "$2"
